@@ -1,68 +1,80 @@
 #include <iostream>
-#include<chrono>
 #include<ctime>
+#include <cstdlib>
+#include<chrono>
 
 using namespace std;
 
-class Node{
-public:
-    int data;
-    Node* next;
-};
+const int arr_size=100;
+
 
 class Stack{
-private:
-    Node* top;
+    int stack_arr[arr_size];
+    int top;
+
 public:
     Stack(){
-        top = nullptr;
-    }
-
-    void Push(int x){
-        Node* newNode = new Node;
-        newNode->data = x;
-        newNode->next = top;
-        top = newNode;
+    top = -1;
     }
 
 
-    void Pop(){
-        if (top==nullptr){
-            cout<< "Stack is underflow!"<<endl;
-            }
-        int pop_value = top->data;
-        Node* temp = top;
-        top = top->next;
-        delete temp;
-        }
-
-    bool isEmpty(){
-        return (top == nullptr);
+void Push(int x){
+    top++;
+    if (top > arr_size){
+        cout<<"Stack Overflow"<<endl;
     }
-    void Display(){
-        if(isEmpty()){
-            cout<<"Stack is empty."<<endl;
-        }
-        else{
-            Node* currentNode = top;
-            while(currentNode != nullptr){
-                cout<<currentNode->data<<" ";
-                currentNode = currentNode->next;
-            }
-        }
-        cout<<endl;
-   }
-   int StackTop(){
-       if(isEmpty()){
-        cout<<"Stack is empty."<<endl;
+    else{
+        stack_arr[top] = x;
+    }
+}
+bool isEmpty(){
+    if(top<0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+int Pop(){
+    if (isEmpty()){
+        cout<<"Stack Underflow"<<endl;
         return -1;
-       }
-       else{
-        return top->data;
-       }
-   }
+    }
+    else{
+        return(stack_arr[top--]);
+    }
 
-};
+}
+void StackTop(){
+    if(top<0){
+        cout<<"Stack is empty."<<endl;
+    }
+    else{cout<<stack_arr[top]<<endl;
+    }
+
+}
+
+void isFull(int arr[],int arr_size){
+    if(top>=arr_size){
+        cout<<"Stack is full."<<endl;
+    }
+    else{
+        cout<<"Stack is not full."<<endl;
+    }
+}
+
+void Display() {
+    if (isEmpty()) {
+        cout << "Stack is empty" << std::endl;
+    }
+    else {
+        for (int i = 0; i <= top; i++) {
+            cout << stack_arr[i] << " ";
+            }
+            cout <<endl;
+    }
+}
+    };
 int main()
 {
     Stack my_stack;
